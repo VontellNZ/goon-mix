@@ -1,4 +1,4 @@
-namespace GoonMixer
+namespace GoonMixer.Data
 {
     public class CamelotScale
     {
