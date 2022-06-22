@@ -1,9 +1,9 @@
+using FluentAssertions;
+using GoonMixer.Data;
+using GoonMixer.Data.Enums;
 using System;
 using System.Collections.Generic;
 using Xunit;
-using GoonMixer.Data;
-using GoonMixer.Data.Enums;
-using FluentAssertions;
 
 namespace GoonMixer.Tests;
 
