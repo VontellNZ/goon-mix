@@ -18,3 +18,8 @@ GoonMixer.Tests/obj/Debug/net6.0/GoonMixer.Tests.csproj.AssemblyReference.cache
 GoonMixer.Tests/obj/Debug/net6.0/GoonMixer.Tests.dll
 GoonMixer.Tests/obj/Debug/net6.0/GoonMixer.Tests.pdb
 GoonMixer.Tests/obj/Debug/net6.0/ref/GoonMixer.Tests.dll
+GoonMixer/bin/Debug/net6.0/GoonMixer.staticwebassets.runtime.json
+GoonMixer/obj/Debug/net6.0/GoonMixer.assets.cache
+GoonMixer/obj/Debug/net6.0/GoonMixer.genruntimeconfig.cache
+GoonMixer/obj/Debug/net6.0/staticwebassets.build.json
+GoonMixer/obj/Debug/net6.0/staticwebassets.development.json
