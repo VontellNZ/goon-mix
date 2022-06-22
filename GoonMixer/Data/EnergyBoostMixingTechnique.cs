@@ -22,7 +22,7 @@ public class EnergyBoostMixingTechnique : IMixingTechnique
         return suggestedSongs;
     }
 
-    private CamelotScale GetModifiedCamelotScale(CamelotScale mainSongCamelotScale, int energyBoostModifier)
+    public CamelotScale GetModifiedCamelotScale(CamelotScale mainSongCamelotScale, int energyBoostModifier)
     {
         var modifiedCamelotScale = new CamelotScale(mainSongCamelotScale.Number + energyBoostModifier, mainSongCamelotScale.Letter);
 
