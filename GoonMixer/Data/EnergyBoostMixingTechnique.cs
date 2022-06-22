@@ -4,25 +4,39 @@ namespace GoonMixer.Data;
 
 public class EnergyBoostMixingTechnique : IMixingTechnique
 {
-    private int _energyBoostModifier = 2;
-    private int _maximumCamelotNumber = 12;
+    private readonly List<int> EnergyBoostModifiers = new List<int>{ 2, -5 };
+    private const int _maximumCamelotNumber = 12;
 
     public List<Song> GetSuggestedSongs(Song mainSong, List<Song> songs)
     {
         songs.Remove(mainSong);
+        var suggestedSongs = new List<Song>();
 
-        var songsToRemove = new List<Song>();
-        if (mainSong.Key.CamelotScale.Number <= _maximumCamelotNumber - _energyBoostModifier)
+        foreach (var energyBoostModifier in EnergyBoostModifiers)
         {
-            songsToRemove = songs.Where(s => !s.Key.CamelotScale.Letter.Equals(mainSong.Key.CamelotScale.Letter) ||
-                s.Key.CamelotScale.Number != mainSong.Key.CamelotScale.Number + _energyBoostModifier).ToList();
-        }
-        else
-        {
-            var matchingCamelotNumber = mainSong.Key.CamelotScale.Number - _maximumCamelotNumber + _energyBoostModifier;
-            songsToRemove = songs.Where(s => s.Key.CamelotScale.Number != matchingCamelotNumber).ToList();
+            var modifiedCamelotScale = GetModifiedCamelotScale(mainSong.Key.CamelotScale, energyBoostModifier);
+            var matchingKeySongs = songs.Where(s => s.Key.CamelotScale.Equals(modifiedCamelotScale));
+            suggestedSongs.AddRange(matchingKeySongs);
         }
 
-        return songs.Except(songsToRemove).ToList();
+        return suggestedSongs;
+    }
+
+    private CamelotScale GetModifiedCamelotScale(CamelotScale mainSongCamelotScale, int energyBoostModifier)
+    {
+        var modifiedCamelotScale = new CamelotScale(mainSongCamelotScale.Number + energyBoostModifier, mainSongCamelotScale.Letter);
+
+        //Number exceeeded the maximum, wrap around from 1
+        if (modifiedCamelotScale.Number > _maximumCamelotNumber)
+        {
+            modifiedCamelotScale.Number = modifiedCamelotScale.Number - _maximumCamelotNumber;
+        }
+        //Number is zero or less, wrap back around from the maximum
+        else if (modifiedCamelotScale.Number <= 0)
+        {
+            modifiedCamelotScale.Number = _maximumCamelotNumber + modifiedCamelotScale.Number;
+        }
+
+        return modifiedCamelotScale;
     }
 }
