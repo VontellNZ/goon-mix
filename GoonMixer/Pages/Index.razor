@@ -1,4 +1,6 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
+@namespace GoonMixer.Data
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +9,20 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<InputFile OnChange="HandleFileDropped" />
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("addDragAndDropListeners");
+        }
+    }
+
+    private async Task HandleFileDropped(InputFileChangeEventArgs e)
+    {
+        await Mixer.Start(new SmoothMixingTechnique());
+    }
+}

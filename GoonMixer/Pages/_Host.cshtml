@@ -6,3 +6,17 @@
 }
 
 <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+<script>
+    window.handleFileDrop = (e) => {
+            e.preventDefault();
+            let files = e.dataTransfer.files;
+            DotNet.invokeMethodAsync('GoonMixer', 'HandleDroppedFiles', files);
+        }
+
+    window.addDragAndDropListeners = () => {
+            let body = document.body;
+            body.addEventListener('dragover', (e) => e.preventDefault());
+            body.addEventListener('drop', window.handleFileDrop);
+        }
+</script>
